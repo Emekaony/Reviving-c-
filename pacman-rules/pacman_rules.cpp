@@ -22,6 +22,7 @@ bool lost(bool power_pellet_active, bool touching_ghost) {
 // won returns a boolean value if Pac-Man wins.
 // The function should return true if Pac-Man
 // has eaten all of the dots and has not lost
-bool won(bool has_eaten_all_dots, bool power_pellet_active, bool touching_ghost) {
+bool won(bool has_eaten_all_dots, bool power_pellet_active,
+         bool touching_ghost) {
     return has_eaten_all_dots && !lost(power_pellet_active, touching_ghost);
 }

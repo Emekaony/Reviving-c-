@@ -5,7 +5,9 @@ int ovenTime() { return 40; }
 /* remainingOvenTime returns the remaining
    minutes based on the actual minutes already in the oven.
 */
-int remainingOvenTime(int actualMinutesInOven) { return ovenTime() - actualMinutesInOven; }
+int remainingOvenTime(int actualMinutesInOven) {
+    return ovenTime() - actualMinutesInOven;
+}
 
 /* preparationTime returns an estimate of the preparation time based on the
    number of layers and the necessary time per layer.
