@@ -1,14 +1,11 @@
 namespace hellmath {
 
-    // TODO: Task 1 - Define an `AccountStatus` enumeration to represent the
     // four account types: `troll`, `guest`, `user`, and `mod`.
-    enum class AccountStatus { troll, guest, user, mod };
+    enum class AccountStatus { troll = 1, guest = 2, user = 3, mod = 4 };
 
-    // TODO: Task 1 - Define an `Action` enumeration to represent the three
     // permission types: `read`, `write`, and `remove`.
     enum class Action { read, write, remove };
 
-    // TODO: Task 2 - Implement the `display_post` function, that gets two
     // arguments of `AccountStatus` and returns a `bool`. The first argument is
     // the status of the poster, the second one is the status of the viewer.
     bool display_post(AccountStatus poster, AccountStatus viewer) {
@@ -20,7 +17,6 @@ namespace hellmath {
         }
     }
 
-    // TODO: Task 3 - Implement the `permission_check` function, that takes an
     // `Action` as a first argument and an `AccountStatus` to check against. It
     // should return a `bool`.
     bool permission_check(Action action, AccountStatus status) {
@@ -51,26 +47,45 @@ namespace hellmath {
         return verdict;
     }
 
-    // TODO: Task 4 - Implement the `valid_player_combination` function that
     // checks if two players can join the same game. The function has two
     // parameters of type `AccountStatus` and returns a `bool`.
     bool valid_player_combination(AccountStatus player_one,
                                   AccountStatus player_two) {
+
+        /*
+        rules: guests are not allowed
+        trolls can only play with trolls
+        */
         bool verdict{true};
-        // trolls can only play with trolls
-        // guests are restricted from playing! They can only watch
+
+        // handle trolls playing with trolls
+        if (player_one == AccountStatus::troll &&
+            player_two == AccountStatus::troll) {
+            return true;
+        }
+        // handle guests
         if (player_one == AccountStatus::guest ||
             player_two == AccountStatus::guest) {
-            verdict = false;
-        } else if (player_one == AccountStatus::troll &&
-                   player_two != AccountStatus::troll) {
-            verdict = false;
+            return false;
+        }
+        // handle the case where they're not the same
+        if ((player_one != player_two)) {
+            // remember trolls can only play with trolls so if either is a troll
+            // then this is not a valid combination already handled the case
+            // where either is a guest so no need to handle it here agian.
+            if (player_one == AccountStatus::troll ||
+                player_two == AccountStatus::troll) {
+                return false;
+            } else {
+                return true;
+            }
         }
         return verdict;
     }
 
-    // TODO: Task 5 - Implement the `has_priority` function that takes two
     // `AccountStatus` arguments and returns `true`, if and only if the first
     // account has a strictly higher priority than the second.
-    bool has_priority(AccountStatus player_one, AccountStatus player_two) {}
+    bool has_priority(AccountStatus player_one, AccountStatus player_two) {
+        return player_one > player_two;
+    }
 } // namespace hellmath
